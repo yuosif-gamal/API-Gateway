@@ -1,17 +1,20 @@
 spring:
+  application:
+    name: gateway
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
       routes:
-        - id: e-commerce-service
+        - id: e-commerce
           uri: http://localhost:8080
           predicates:
-            - Path=/item/**
-            - Path=/users/**
-            - Path=/products/**
-            - Path=/categories/**
-            - Path=/cart/**
-            - Path=/vouchers/**
-        - id: notification-service
+            - Path=/users/**,/products/**,/categories/**,/item/**,/cart/**,/vouchers/**
+
+        - id: email-microservice
           uri: http://localhost:8082
           predicates:
             - Path=/email/**
+server:
+  port: 8081
